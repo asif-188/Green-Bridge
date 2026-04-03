@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Green Bridge | Premium Business Software Solutions</title>
+  <style>
+    :root {
+      --primary: #118a4e;
+      --primary-dark: #0d6b3d;
+      --primary-soft: #e9fff2;
+      --accent: #1d4ed8;
+      --bg: #ffffff;
+      --bg-soft: #f7fffa;
+      --card: rgba(255,255,255,0.92);
+      --text: #15231a;
+      --muted: #5f6f63;
+      --border: #dcebdd;
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(17, 138, 78, 0.10);
+      --shadow-strong: 0 24px 55px rgba(16, 62, 39, 0.20);
+      --radius: 22px;
+    }
+
+    body.dark {
+      --primary: #22c55e;
+      --primary-dark: #16a34a;
+      --primary-soft: #0f1f15;
+      --accent: #60a5fa;
+      --bg: #09110c;
+      --bg-soft: #0d1711;
+      --card: rgba(17, 24, 19, 0.94);
+      --text: #eefbf2;
+      --muted: #b2c6b8;
+      --border: #203529;
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      --shadow-strong: 0 24px 55px rgba(0, 0, 0, 0.36);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 104%; }
+    body {
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(17,138,78,0.06) 0, transparent 32%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+      line-height: 1.65;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    img { max-width: 100%; display: block; }
+    .container { width: min(1180px, 92%); margin: 0 auto; }
+    .section { padding: 88px 0; }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-size: 0.92rem;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+
+    h1, h2, h3, h4 { line-height: 1.15; }
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      max-width: 760px;
+      margin: 0 auto 42px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .theme-toggle:hover,
+    .whatsapp-float:hover { transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--primary-dark);
+      border: 1px solid var(--border);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.2px;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: white;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+      transition: 0.25s ease;
+    }
+
+    .hero { padding: 84px 0 70px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      margin: 18px 0 18px;
+      letter-spacing: -1.2px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 650px;
+    }
+
+    .hero-card,
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: 0.25s ease, background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .hero-card { padding: 28px; }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      background: color-mix(in srgb, var(--card) 80%, var(--bg-soft));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      color: var(--primary-dark);
+    }
+
+    .grid { display: grid; gap: 24px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card { padding: 28px; }
+    .card:hover { transform: translateY(-4px); }
+    .card h3 { margin: 14px 0 10px; font-size: 1.2rem; color: var(--text); }
+    .card p, .card li, .card label, .card input, .card textarea { color: var(--muted); }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary-soft), color-mix(in srgb, var(--primary-soft) 40%, var(--bg)));
+      color: var(--primary-dark);
+      font-size: 1.4rem;
+      font-weight: 800;
+      border: 1px solid var(--border);
+    }
+
+    .muted-section { background: color-mix(in srgb, var(--bg-soft) 90%, transparent); }
+
+    ul.clean {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    ul.clean li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: 800;
+      margin-right: 10px;
+    }
+
+    .partner-list {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .pill {
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px rgba(17, 138, 78, 0.06);
+      font-weight: 700;
+    }
+
+    .process-step { position: relative; padding-top: 12px; }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .testimonial { position: relative; overflow: hidden; }
+    .testimonial::after {
+      content: '“';
+      position: absolute;
+      right: 18px;
+      top: 8px;
+      font-size: 4rem;
+      line-height: 1;
+      color: color-mix(in srgb, var(--primary-soft) 70%, transparent);
+      font-weight: 800;
+    }
+
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .screenshot-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .screenshot-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+    }
+
+    .screenshot-caption {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .contact-box {
+      background: linear-gradient(135deg, #103e27, #118a4e);
+      color: white;
+      border-radius: 30px;
+      padding: 36px;
+      box-shadow: var(--shadow-strong);
+    }
+
+    .contact-box p, .contact-box li { color: rgba(255,255,255,0.9); }
+    .contact-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .contact-panel {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      padding: 22px;
+      margin-top: 22px;
+    }
+
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--card) 80%, var(--bg));
+      border-radius: 14px;
+      padding: 14px 15px;
+      outline: none;
+      font: inherit;
+      color: var(--text);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(17, 138, 78, 0.12);
+    }
+
+    .success-msg {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 70;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 18px;
+      min-width: 62px;
+      height: 62px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 800;
+      box-shadow: 0 16px 35px rgba(18, 140, 126, 0.35);
+      transition: 0.25s ease;
+    }
+
+    .whatsapp-float span {
+      font-size: 0.98rem;
+      letter-spacing: 0.2px;
+    }
+
+    .partner-card {
+      text-align: center;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .partner-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 20px rgba(17, 138, 78, 0.15);
+    }
+
+    .partner-name {
+      display: block;
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .partner-quote {
+      font-style: italic;
+      font-size: 0.98rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 280px;
+    }
+
+    footer {
+      padding: 28px 0 36px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .contact-layout,
+      .screenshots-grid,
+      .grid-4,
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-wrap {
+        flex-direction: column;
+      }
+
+      nav ul {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding-top: 60px; }
+      .section { padding: 70px 0; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .btn-row { flex-direction: column; }
+      .btn { width: 100%; }
+      .nav-actions { width: 100%; justify-content: center; flex-wrap: wrap; }
+      .whatsapp-float { min-width: 56px; height: 56px; right: 14px; bottom: 14px; padding: 0 16px; }
+      .whatsapp-float span { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-wrap">
+      <a href="#home" class="brand">
+        <img src="logo.png" alt="Green Bridge Logo" />
+        <span>Green Bridge</span>
+      </a>
+
+      <div class="nav-actions">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#screenshots">Screenshots</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#partners">Partners</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero reveal" id="home">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Since 2025 • Custom Software Company</span>
+        <h1>Premium billing software, websites, and mobile apps for modern businesses.</h1>
+        <p>
+          Green Bridge builds practical digital products that help businesses manage billing, improve operations, and grow with confidence. From custom billing systems to websites and mobile apps, every solution is created to match your exact requirement.
+        </p>
+        <div class="btn-row">
+          <a href="#contact" class="btn btn-primary">Talk to Our Team</a>
+          <a href="#projects" class="btn btn-secondary">View Our Work</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal">
+        <img src="logo.png" alt="Green Bridge" style="width:100%; max-width:260px; display:block; margin:0 auto 18px; object-fit:contain;" />
+        <h3 style="text-align:center; font-size:1.5rem; margin-bottom:10px;">Business Software Made Simple</h3>
+        <p style="text-align:center;">We deliver clean, scalable, and easy-to-use software for billing, web presence, and mobile access.</p>
+        <div class="hero-stats">
+          <div class="stat"><strong class="counter" data-target="6">0</strong><span>Billing software projects</span></div>
+          <div class="stat"><strong class="counter" data-target="1">0</strong><span>International website delivery</span></div>
+          <div class="stat"><strong class="counter" data-target="4">0</strong><span>Core partners</span></div>
+          <div class="stat"><strong class="counter" data-target="100">0</strong><span>Requirement-based development %</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="about">
+    <div class="container">
+      <h2>Built for real business needs</h2>
+      <p class="section-subtitle">
+        Green Bridge focuses on business-first software solutions. We understand that every company has its own billing method, customer flow, and reporting needs. That is why we build customized systems instead of one-size-fits-all products.
+      </p>
+      <div class="grid grid-3">
+        <div class="card"><div class="icon">01</div><h3>Custom development</h3><p>We create software around your workflow, not the other way around.</p></div>
+        <div class="card"><div class="icon">02</div><h3>Business efficiency</h3><p>Our products reduce manual work and help you manage operations faster.</p></div>
+        <div class="card"><div class="icon">03</div><h3>Reliable delivery</h3><p>We keep the experience simple, clear, and focused on practical results.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section muted-section reveal" id="services">
+    <div class="container">
+      <h2>Services that move your business forward</h2>
+      <p class="section-subtitle">Complete digital solutions designed for small and growing businesses.</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="icon">💳</div>
+          <h3>Billing software development</h3>
+          <p>Industry-specific billing systems for markets, shops, trucks, fuel stations, and more.</p>
+          <ul class="clean"><li>Custom invoice flow</li><li>Business-specific reports</li><li>Simple and fast UI</li></ul>
+        </div>
+        <div class="card">
+          <div class="icon">🌐</div>
+          <h3>Website development</h3>
+          <p>Responsive websites that present your business professionally and help customers connect easily.</p>
+          <ul class="clean"><li>Modern design</li><li>Mobile-friendly layout</li><li>Lead-focused pages</li></ul>
+        </div>
+        <div class="card">
+          <div class="icon">📱</div>
+          <h3>Mobile app development</h3>
+          <p>Apps tailored to your business requirement, making your services available anytime and anywhere.</p>
+          <ul class="clean"><li>User-friendly experience</li><li>Fast performance</li><li>Business-ready features</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="features">
+    <div class="container">
+      <h2>What customers can expect</h2>
+      <p class="section-subtitle">A strong feature set that supports daily business operations.</p>
+      <div class="grid grid-4">
+        <div class="card"><h3>Invoice generation</h3><p>Create fast and accurate bills with clear records.</p></div>
+        <div class="card"><h3>Reports & tracking</h3><p>Monitor daily and monthly performance with useful summaries.</p></div>
+        <div class="card"><h3>Requirement-based setup</h3><p>Each project is developed to fit your business process.</p></div>
+        <div class="card"><h3>Easy-to-use interface</h3><p>Simple software that your team can learn quickly.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section muted-section reveal" id="projects">
+    <div class="container">
+      <h2>Projects we have delivered</h2>
+      <p class="section-subtitle">Solutions developed for different industries and business models.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Billing software projects</h3>
+          <ul class="clean">
+            <li>Flower Market Billing Software</li>
+            <li>MOMO Truck Billing Software</li>
+            <li>Stationary Billing Software</li>
+            <li>Petrol Bunk Billing Software</li>
+            <li>Vegetable Billing Software</li>
+            <li>TNFL2 Billing Software</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Website project</h3>
+          <p>Professional website developed for a Singapore Compliance Company, focused on trust, clarity, and business presentation.</p>
+          <ul class="clean"><li>Responsive design</li><li>Professional company presentation</li><li>Business-focused structure</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="screenshots">
+    <div class="container">
+      <h2>Software screenshots</h2>
+      <p class="section-subtitle">This section is ready for your real product screenshots. Replace the sample image links below with actual dashboard, billing entry, and report screen images from your software.</p>
+      <div class="screenshots-grid">
+        <div class="screenshot-card">
+          <img src="https://via.placeholder.com/800x600?text=Billing+Dashboard+Screenshot" alt="Billing dashboard screenshot" />
+          <p class="screenshot-caption"><strong>Dashboard View</strong><br/>Show daily sales, totals, billing summary, and quick actions.</p>
+        </div>
+        <div class="screenshot-card">
+          <img src="https://via.placeholder.com/800x600?text=Invoice+Entry+Screenshot" alt="Invoice entry screenshot" />
+          <p class="screenshot-caption"><strong>Billing Entry</strong><br/>Display item entry, customer details, and invoice generation screen.</p>
+        </div>
+        <div class="screenshot-card">
+          <img src="https://via.placeholder.com/800x600?text=Reports+Screenshot" alt="Reports screenshot" />
+          <p class="screenshot-caption"><strong>Reports Section</strong><br/>Present daily, monthly, and custom business reporting features.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section muted-section reveal" id="process">
+    <div class="container">
+      <h2>How we work</h2>
+      <p class="section-subtitle">A simple process that keeps projects clear and efficient.</p>
+      <div class="grid grid-4">
+        <div class="card process-step"><div class="step-number">1</div><h3>Understand requirement</h3><p>We listen to your business needs, workflow, and expected results.</p></div>
+        <div class="card process-step"><div class="step-number">2</div><h3>Plan the solution</h3><p>We define the features, structure, and user flow that fit your business.</p></div>
+        <div class="card process-step"><div class="step-number">3</div><h3>Develop & test</h3><p>We build the product carefully and test it for smooth real-world use.</p></div>
+        <div class="card process-step"><div class="step-number">4</div><h3>Deliver & support</h3><p>We launch your project and continue supporting you as needed.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="testimonials">
+    <div class="container">
+      <h2>What our clients value</h2>
+      <p class="section-subtitle">Sample feedback style you can later replace with real customer testimonials.</p>
+      <div class="grid grid-3">
+        <div class="card testimonial"><h3>Fast and practical</h3><p>Green Bridge created a billing solution that made our daily operations faster and easier to manage.</p></div>
+        <div class="card testimonial"><h3>Customized perfectly</h3><p>The software matched our business requirement very well and helped reduce manual work.</p></div>
+        <div class="card testimonial"><h3>Professional support</h3><p>Their team understood our needs clearly and delivered a simple, reliable product.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section muted-section reveal" id="partners">
+    <div class="container">
+      <h2>Meet the Partners</h2>
+      <p class="section-subtitle">The core team behind Green Bridge</p>
+      <div class="grid grid-4">
+        <div class="card partner-card">
+          <div class="partner-avatar">R</div>
+          <span class="partner-name">Ram</span>
+          <p class="partner-quote">"We build simple and powerful software that helps businesses grow faster. Our focus is always on real-world solutions that actually work."</p>
+        </div>
+        <div class="card partner-card">
+          <div class="partner-avatar">H</div>
+          <span class="partner-name">Hari</span>
+          <p class="partner-quote">"Every business is unique, so we design systems tailored to your needs. Our goal is to make technology easy and reliable for everyone."</p>
+        </div>
+        <div class="card partner-card">
+          <div class="partner-avatar">A</div>
+          <span class="partner-name">Asif</span>
+          <p class="partner-quote">"We believe in delivering quality software with speed and precision. Customer satisfaction is always our top priority."</p>
+        </div>
+        <div class="card partner-card">
+          <div class="partner-avatar">V</div>
+          <span class="partner-name">Vishnu</span>
+          <p class="partner-quote">"We create scalable solutions that grow along with your business. Innovation and support are at the heart of what we do."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="contact">
+    <div class="container contact-layout">
+      <div class="contact-box">
+        <span class="eyebrow" style="background:rgba(255,255,255,0.12); color:white; border-color:rgba(255,255,255,0.18);">Get started with Green Bridge</span>
+        <h2 style="text-align:left; margin-top:18px; margin-bottom:14px; color:white;">Let’s build the right software for your business</h2>
+        <p>
+          Need a billing system, business website, or mobile application? Share your requirement and our team will help you create a practical, scalable solution.
+        </p>
+        <div class="btn-row">
+          <a href="tel:+919788866964" class="btn btn-secondary">Call Ram</a>
+          <a href="https://wa.me/919788866964" target="_blank" class="btn btn-secondary">WhatsApp Now</a>
+        </div>
+        <div class="contact-panel">
+          <h3 style="margin-bottom:14px; color:white;">Direct contact</h3>
+          <ul class="contact-list">
+            <li><strong>Ram:</strong> +91 9788866964</li>
+            <li><strong>Hari:</strong> +91 9840487286</li>
+            <li><strong>Asif:</strong> +91 7299119880</li>
+            <li><strong>Vishnu:</strong> +91 9080029547</li>
+            <li><strong>Email:</strong> yourmail@example.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <span class="eyebrow">Inquiry Form</span>
+        <h3 style="font-size:1.8rem; margin:16px 0 8px;">Send your requirement</h3>
+        <p style="color:var(--muted); margin-bottom:18px;">This form is connected to a WhatsApp inquiry flow so customers can instantly send their requirement.</p>
+        <form id="inquiryForm" class="form-grid">
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" placeholder="Enter your name" required />
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required />
+          </div>
+          <div class="field">
+            <label for="service">Service Needed</label>
+            <select id="service" name="service" required>
+              <option value="">Select a service</option>
+              <option>Billing Software</option>
+              <option>Website Development</option>
+              <option>Mobile App Development</option>
+              <option>Custom Software</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Project Requirement</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell us what you need" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+          <div class="success-msg" id="successMsg">Thanks. Opening WhatsApp with your inquiry details now.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© 2026 Green Bridge. All rights reserved.</div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/919788866964" target="_blank" aria-label="Chat on WhatsApp">💬 <span>WhatsApp</span></a>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('greenBridgeTheme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+      themeToggle.textContent = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      themeToggle.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('greenBridgeTheme', isDark ? 'dark' : 'light');
+    });
+
+    const counters = document.querySelectorAll('.counter');
+    let counterStarted = false;
+
+    function animateCounters() {
+      if (counterStarted) return;
+      counterStarted = true;
+      counters.forEach(counter => {
+        const target = Number(counter.dataset.target);
+        let current = 0;
+        const increment = Math.max(1, Math.ceil(target / 60));
+        const update = () => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = target;
+          } else {
+            counter.textContent = current;
+            requestAnimationFrame(update);
+          }
+        };
+        update();
+      });
+    }
+
+    const revealItems = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.id === 'home') animateCounters();
+        }
+      });
+    }, { threshold: 0.2 });
+
+    revealItems.forEach(item => observer.observe(item));
+
+    const inquiryForm = document.getElementById('inquiryForm');
+    const successMsg = document.getElementById('successMsg');
+    inquiryForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(inquiryForm);
+      const name = formData.get('name');
+      const phone = formData.get('phone');
+      const service = formData.get('service');
+      const message = formData.get('message');
+
+      const text = `Hello Green Bridge,%0A%0AMy name is ${encodeURIComponent(name)}.%0APhone: ${encodeURIComponent(phone)}%0AService needed: ${encodeURIComponent(service)}%0ARequirement: ${encodeURIComponent(message)}`;
+      successMsg.style.display = 'block';
+      setTimeout(() => {
+        window.open(`https://wa.me/919788866964?text=${text}`, '_blank');
+      }, 500);
+      inquiryForm.reset();
+    });
+  </script>
+</body>
+</html>
